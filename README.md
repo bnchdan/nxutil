@@ -1,4 +1,4 @@
-# nxutil with python3
+# nxutil for python3
 naxsi whitelist creation
 
 Usage:
