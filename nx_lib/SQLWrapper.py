@@ -44,7 +44,7 @@ class SQLSet(object):
     def __getitem__(self, key):
         if isinstance(key, slice):
             if key.step is not None:
-                raise SQLWrapperException, 'Sorry, step is not supported'
+                raise SQLWrapperException + 'Sorry, step is not supported'
             if key.start is not None:
                 start = int(key.start)
             if key.stop is not None:
@@ -81,7 +81,7 @@ class SQLSet(object):
         conditions = []
         for cond in kwargs:
             if '__' not in cond:
-                raise SQLWrapperException, "Invalid Syntax in where"
+                raise SQLWrapperException+ "Invalid Syntax in where"
             field_name, cond_type = cond.split('__')
             conditions.append((field_name, cond_type, kwargs[cond],))
         if ' WHERE (' not in self.__query:
@@ -154,7 +154,7 @@ class SQLWrapper(object):
     def insert(self, **kwargs):
         values = []
         if kwargs.get('table') is None:
-            raise SQLWrapperException, 'insert need a table !'
+            raise SQLWrapperException+ 'insert need a table !'
         if self.__dbopen is False:
             self.__opendb()
         self.__sql = 'INSERT INTO ' + kwargs['table'] + ' ('
@@ -179,7 +179,7 @@ class SQLWrapper(object):
     def update(self, **kwargs):
         values = []
         if kwargs.get('table') is None:
-            raise SQLWrapperException, 'insert need a table !'
+            raise SQLWrapperException + 'insert need a table !'
         if self.__dbopen is False:
             self.__opendb()
         self.__sql = 'UPDATE ' + kwargs['table'] + ' SET '

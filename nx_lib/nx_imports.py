@@ -1,4 +1,5 @@
-import urlparse
+from urllib.parse import urlparse
+from urllib.parse import parse_qs
 import string
 import itertools
 import datetime
@@ -328,23 +329,23 @@ class NxInject():
             event = self.multiline_buf[event['seed_end']]
             del self.multiline_buf[event['seed_end']]
         entry = {}
-        if not event.has_key('uri'):
+        if 'uri ' not in event:
             entry['uri'] = ''
         else:
             entry['uri'] = event['uri']
-        if not event.has_key('server'):
+        if  'server' not in event:
             entry['server'] = ''
         else:
             entry['server'] = event['server']
-        if not event.has_key('content'):
+        if 'content' not in event:
             entry['content'] = ''
         else:
             entry['content'] = event['content']
-        if not event.has_key('ip'):
+        if 'ip' not in event:
             entry['ip'] = ''
         else:
             entry['ip'] = event['ip']
-        if not event.has_key('date'):
+        if 'date' not in event:
             entry['date'] = ''
         else:
             entry['date'] = event['date']
@@ -411,7 +412,7 @@ class NxInject():
     def exception_to_dict(self, line):
         """Parses a naxsi exception to a dict, 
         1 on error, 0 on success"""
-        odict = urlparse.parse_qs(line)
+        odict = parse_qs(line)
         for x in odict.keys():
             odict[x][0] = odict[x][0].replace('\n', "\\n")
             odict[x][0] = odict[x][0].replace('\r', "\\r")
@@ -456,7 +457,8 @@ class NxInject():
         success = 0
         for date_format in supported_formats:
             nb_sp = date_format.count(" ")
-            clean_date = string.join(date.split(" ")[:nb_sp+1], " ")
+            #clean_date = string.join(date.split(" ")[:nb_sp+1], " ")
+            clean_date = " ".join(date.split(" ")[:nb_sp + 1])
             # strptime does not support numeric time zone, hack.
             idx = clean_date.find("+")
             if idx != -1:

@@ -1,7 +1,5 @@
-# nxutil
+# nxutil with python3
 naxsi whitelist creation
 
-python setup.py install
-
 Usage:
-python nx_util.py -l /path_to_naxsi_log -o -p 1
+python3 nx_util.py -l /path_to_naxsi_log -o -p 1

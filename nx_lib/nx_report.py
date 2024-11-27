@@ -3,8 +3,10 @@ import pprint
 import os
 import cgi
 import sys
-from ordereddict import OrderedDict
+#from ordereddict import OrderedDict
+from collections import OrderedDict
 import logging
+from functools import reduce
 # This code is dirty :)
 # This code needs to be replaced, but so far is doing its job,
 # it will be discarded when we add filters.
@@ -106,8 +108,13 @@ class NxReport(object):
         for x in dict_replace.keys():
             if dict_replace[x] is None:
                 dict_replace[x] = str(0)
-        html = reduce(lambda html,(b, c): html.replace(b, c), 
-                      dict_replace.items(), html)
+        html = reduce(
+    lambda html, bc: html.replace(bc[0], bc[1]),
+    dict_replace.items(),
+    html
+)
+
+
         required_files = [(self.data_dir+"/bootstrap.min.css", "__CSS_BOOTSTRAP__"),
                           (self.data_dir+"/bootstrap-responsive.min.css", "__CSS_BOOTSTRAP_RESPONSIVE_"),
                           (self.data_dir+"/bootstrap.min.js", "__JS_BOOTSTRAP__"),

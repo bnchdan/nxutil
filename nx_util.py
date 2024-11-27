@@ -63,7 +63,7 @@ if __name__ == "__main__":
 	# Configuration
 	parser.add_option("-c", "--config", dest="conf_path",
 			  help="Path to configuration (defaults to /usr/local/etc/nx_util.conf)", 
-			  type="string", default="/usr/local/etc/nx_util.conf")
+			  type="string", default="/home/dan/Desktop/nxutil/nx_util.conf")
 	
 	# Filtering options should go here :)
 	parser.add_option("-f", "--filters", dest="usr_filter",
@@ -115,9 +115,9 @@ if __name__ == "__main__":
 		wl = NxWhitelistExtractor(sql, config.core_rules, pages_hit=options.wl_plimit, rules_hit=options.wl_rlimit)
 		wl.gen_basic_rules()
 		base_rules, opti_rules = wl.opti_rules_back()
-		opti_rules.sort(lambda a,b: (b['hratio']+(b['pratio']*3)) < (a['hratio']+(a['pratio']*3)))
+		opti_rules.sort(key=lambda x: x['hratio'] + (x['pratio'] * 3), reverse=True)
 		r = wl.format_rules_output(wl.final_rules)
-		print r
+		print (r)
 	if options.dst_file is not None:
 		logging.info("Outputing HTML report to ["+options.dst_file+"]")
 		report = NxReportGen(options.dst_file, config.data_dir, sql)

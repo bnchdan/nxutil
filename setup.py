@@ -16,6 +16,6 @@ setup(name='nx_util',
                                 'nx_datas/map.tpl',
                                 'nx_datas/bootstrap.min.js',
                                 'nx_datas/country2coords.txt']),
-                  ('/usr/share/man/man1', ['nx_util.1.gz']),
-                  ('/usr/local/etc/', ['nx_util.conf'])]
+                  ('/home/dan/Desktop/nxutil', ['nx_util.1.gz']),
+                  ('/home/dan/Desktop/nxutil', ['nx_util.conf'])]
       )
